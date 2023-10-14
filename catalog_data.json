@@ -1,0 +1,99 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Компьютеры",
+      "description": "Компьютеры и их комплектующие"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Смартфоны",
+      "description": "Смартфоны и аксесуары"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Микроволновки",
+      "description": "Микроволновые печи"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Холодильники",
+      "description": "Холодильники морозилки и рефрежираторы"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Монитор2",
+      "description": "монитор для компьютера диагональ 25 дюймов",
+      "image": "",
+      "category": 1,
+      "price": "25000.00",
+      "created_at": "2023-10-01T17:31:40.719Z",
+      "updated_at": "2023-10-01T17:31:40.719Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Процессор",
+      "description": "Процессор такой-то с такимито характеристиками",
+      "image": "",
+      "category": 1,
+      "price": "14999.00",
+      "created_at": "2023-10-01T17:31:40.719Z",
+      "updated_at": "2023-10-01T17:31:40.719Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Кабель micro-USB",
+      "description": null,
+      "image": "",
+      "category": 2,
+      "price": "100.00",
+      "created_at": "2023-10-01T17:31:40.719Z",
+      "updated_at": "2023-10-01T17:31:40.719Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Холодильник",
+      "description": "Холодильник с морозильной камерой",
+      "image": "",
+      "category": 4,
+      "price": "54999.00",
+      "created_at": "2023-10-14T13:57:23.754Z",
+      "updated_at": "2023-10-14T13:57:23.754Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Кабель USB type-C",
+      "description": null,
+      "image": "",
+      "category": 2,
+      "price": "150.00",
+      "created_at": "2023-10-14T13:57:23.754Z",
+      "updated_at": "2023-10-14T13:57:23.754Z"
+    }
+  }
+]
