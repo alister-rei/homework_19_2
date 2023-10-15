@@ -1,8 +1,8 @@
-
+{% load my_tags %}
 <div class="col">
     <div class="card shadow-sm" style="height: 24rem;">
         {% if object.image %}
-        <img src="/media/{{ object.image }}" class="card-img-top" width="180" height="180">
+        <img src="{{ object.image|my_media_filter }}" class="card-img-top" width="180" height="180">
         {% else %}
         <svg class="bd-placeholder-img card-img-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg"
              role="img"
