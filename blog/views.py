@@ -55,14 +55,7 @@ class BlogListView(ListView):
 
 
 class BlogDetailView(DetailView):
-    def get(self, request, pk):
-        post = Post.objects.get(id=pk)
-        context = {
-            'object': post,
-            'title': f'{post.title}'
-        }
-        return render(request, 'blog/post_detail.html', context)
-
+    model = Post
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
