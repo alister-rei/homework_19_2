@@ -57,11 +57,13 @@ class BlogListView(ListView):
 class BlogDetailView(DetailView):
     model = Post
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.views_count += 1
-        self.object.save()
-        return self.object
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        post.views_count += 1
+        post.save()
+        context['title'] = post.title
+        return context
 
 
 class BlogDeleteView(DeleteView):
