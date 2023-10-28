@@ -2,12 +2,16 @@
 
 {% block content %}
 
+<div class="text-center container">
+    <a class="btn btn-primary" href="{% url 'catalog:create' %}" type="button">Create Product</a>
+</div>
+
 <div class="album py-5 bg-body-tertiary">
     <div class="text-center container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-            {% for object in product_list %}
-                {% include 'catalog/includes/inc_product.html' %}
+            {% for object in object_list %}
+            {% include 'catalog/includes/inc_product.html' %}
             {% endfor %}
         </div>
     </div>
