@@ -14,9 +14,14 @@
         {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ object.name|title }}</h5>
+             {% if object.active_version_number %}
+            <small class="text-body-secondary">Текущая версия - {{ object.active_version_number }}</small>
+            {% endif %}
             <p class="card-text">{{ object.description|truncatechars:100 }}</p>
-            <a href="{% url 'catalog:product' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">К
+            <a href="{% url 'catalog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">К
                 продукту</a>
+            <a href="{% url 'catalog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">update</a>
+            <a href="{% url 'catalog:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">delete</a>
         </div>
     </div>
 </div>
