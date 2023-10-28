@@ -2,6 +2,7 @@ from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
 
+
 class Post(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     slug = models.CharField(max_length=100, **NULLABLE, verbose_name='Slug')
