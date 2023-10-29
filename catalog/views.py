@@ -46,23 +46,27 @@ class ProductUpdateView(UpdateView):
         'title': 'Update Product'
     }
 
+    def get_form_class(self):
+        return super().get_form_class()
+
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(**kwargs)
 
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+
         if self.request.method == 'POST':
-            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object,)
+            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object, )
         else:
             context_data['formset'] = VersionFormset(instance=self.object)
         return context_data
-
 
     def form_valid(self, form):
         new_mat = form.save()
         new_mat.slug = slugify(new_mat.name)
         new_mat.save()
-        self.object = form.save()
+        self.object.save()
         formset = self.get_context_data()['formset']
+        self.object = form.save()
         if formset.is_valid():
             formset.instance = self.object
             formset.save()
