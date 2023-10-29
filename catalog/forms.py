@@ -34,24 +34,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
 
 class VersionForm(StyleFormMixin, forms.ModelForm):
-    ACTIVE_VERSIONS = []  # задаем список активных версий товара
-
     class Meta:
         model = Version
         fields = '__all__'
-
-    def clean_is_current(self):
-        """
-        Определяет количество активных версий товара
-        """
-        cleaned_data = super().clean()
-        version = self.cleaned_data['is_current']
-
-        if version:
-            VersionForm.ACTIVE_VERSIONS.append(True)
-
-        if len(VersionForm.ACTIVE_VERSIONS) > 1:
-            print('>1')
-            raise forms.ValidationError('Возможна лишь одна активная версия. Пожалуйста, активируйте только 1 версию.')
-
-        return cleaned_data
