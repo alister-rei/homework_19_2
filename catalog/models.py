@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -49,3 +51,10 @@ class Version(models.Model):
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
         ordering = ('version_number',)  # сортировка по номеру версии
+
+
+@receiver(post_save, sender=Version)
+def set_current_version(sender, instance, **kwargs):
+    if instance.is_current:
+        Version.objects.filter(product=instance.product).exclude(pk=instance.pk).update(is_current=False)
+
