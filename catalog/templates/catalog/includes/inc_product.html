@@ -1,0 +1,27 @@
+{% load my_tags %}
+<div class="col">
+    <div class="card shadow-sm" style="height: 24rem;">
+        {% if object.image %}
+        <img src="{{ object.image|my_media_filter }}" class="card-img-top" width="180" height="180">
+        {% else %}
+        <svg class="bd-placeholder-img card-img-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg"
+             role="img"
+             aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+            Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+        </svg>
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ object.name|title }}</h5>
+             {% if object.active_version_number %}
+            <small class="text-body-secondary">Текущая версия - {{ object.active_version_number }}</small>
+            {% endif %}
+            <p class="card-text">{{ object.description|truncatechars:100 }}</p>
+            <a href="{% url 'catalog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">К
+                продукту</a>
+            <a href="{% url 'catalog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">update</a>
+            <a href="{% url 'catalog:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">delete</a>
+        </div>
+    </div>
+</div>
