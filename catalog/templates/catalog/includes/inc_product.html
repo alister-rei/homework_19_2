@@ -1,10 +1,10 @@
 {% load my_tags %}
 <div class="col">
-    <div class="card shadow-sm" style="height: 24rem;">
+    <div class="card shadow-sm" style="height: 32rem;">
         {% if object.image %}
-        <img src="{{ object.image|my_media_filter }}" class="card-img-top" width="180" height="180">
+        <img src="{{ object.image|my_media_filter }}" class="card-img-top" width="180" height="220">
         {% else %}
-        <svg class="bd-placeholder-img card-img-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg"
+        <svg class="bd-placeholder-img card-img-top" width="180" height="220" xmlns="http://www.w3.org/2000/svg"
              role="img"
              aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>
             Placeholder</title>
@@ -18,10 +18,24 @@
             <small class="text-body-secondary">Текущая версия - {{ object.active_version_number }}</small>
             {% endif %}
             <p class="card-text">{{ object.description|truncatechars:100 }}</p>
-            <a href="{% url 'catalog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">К
-                продукту</a>
+            <div>
+             {% if request.user.is_staff %}
+                {% if object.is_published %}
+                <small class="text-success">Статус товара - Опубликован</small>
+                {% else %}
+                <small class="text-danger">Статус товара - На модерации</small>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+            {% endif %}
+            <a href="{% url 'catalog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">
+                К продукту</a>
+
+            {% if request.user == object.owner or request.user.is_staff %}
             <a href="{% url 'catalog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">update</a>
             <a href="{% url 'catalog:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">delete</a>
+            {% endif %}
+            </div>
         </div>
     </div>
 </div>
