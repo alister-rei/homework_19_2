@@ -36,6 +36,8 @@ class ProductCreateView(CreateView):
         new_mat.slug = slugify(new_mat.name)
         new_mat.save()
         self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
         return super().form_valid(form)
 
 
@@ -84,12 +86,19 @@ class ProductListView(ListView):
         'title': 'Skystore'
     }
 
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
-        # for product in queryset:
-        #     version = product.version_set.all().filter(is_current=True).first()
-        #     product.version = version
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.is_authenticated:  # для зарегистрированных пользователей
+            if user.is_staff or user.is_superuser:  # для работников и суперпользователя
+                queryset = super().get_queryset().order_by('-pk')
+
+            else:  # для остальных пользователей
+                queryset = super().get_queryset().filter(
+                    is_published=True).order_by('-pk')
+        else:  # для незарегистрированных пользователей
+            queryset = super().get_queryset().filter(
+                is_published=True).order_by('-pk')
         return queryset
 
     def get_context_data(self, *args, **kwargs):
