@@ -6,6 +6,8 @@
 
 ## В файле `config/settings.py` заменить `EMAIL_HOST_USER = 'your_email@yandex.ru' EMAIL_HOST_PASSWORD = 'your_yandex_smtp_password'` на свои данные
 
+## В файле `user/management/commands/csu.py` команда для создания суперпользователя с паролем
+
 ## Homework 20.2 :
 
 - 1 Добавлены пользователи с регистрацией по почте и полями профиля «Аватар», «Номер телефона», «Страна» итд.
