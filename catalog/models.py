@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from config import settings
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -18,15 +20,19 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    VERSION_CHOICES = ((True, 'Опубликовано'), (False, 'На модерации'))
+
     name = models.CharField(max_length=250, verbose_name='Наименование')
     slug = models.CharField(max_length=100, **NULLABLE, verbose_name='Slug')
     description = models.TextField(**NULLABLE, verbose_name='Описание')
     image = models.ImageField(upload_to='product/', **NULLABLE, verbose_name='Изображение(превью)')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена за покупку')
-    is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
+    is_published = models.BooleanField(choices=VERSION_CHOICES, verbose_name='Опубликовано')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
+
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
 
     def __str__(self):
         return f'{self.name}, {self.price}'
