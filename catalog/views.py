@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.forms import formset_factory, inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -91,11 +92,17 @@ class ProductListView(ListView):
 
         if user.is_authenticated:  # для зарегистрированных пользователей
             if user.is_staff or user.is_superuser:  # для работников и суперпользователя
-                queryset = super().get_queryset().order_by('-pk')
+                queryset = super().get_queryset().order_by('pk')
 
             else:  # для остальных пользователей
-                queryset = super().get_queryset().filter(
-                    is_published=True).order_by('-pk')
+                # Получаем queryset, результат фильтрации по условию owner=user
+                queryset_1 = super().get_queryset().filter(owner=user).order_by('pk')
+                # Получаем queryset, результат фильтрации по условию is_published=True
+                queryset_2 = super().get_queryset().filter(is_published=True).order_by('pk')
+                # Объединяем два queryset с использованием метода union()
+                queryset = queryset_2.union(queryset_1)
+                # queryset = super().get_queryset().filter(owner=user).order_by('pk')
+
         else:  # для незарегистрированных пользователей
             queryset = super().get_queryset().filter(
                 is_published=True).order_by('-pk')
