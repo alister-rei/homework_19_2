@@ -1,0 +1,24 @@
+{% extends 'catalog/basic.html' %}
+
+{% block content %}
+
+<div class="col-6">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Вход</h4>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+            <div class="card-footer">
+                <h5>Сгенирировать пароль на почту если забыли пароль</h5>
+                <a href="{% url 'user:regenerate_password' %}" type="button" class="btn btn-sm btn-outline-secondary">Сгенирировать пароль</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
