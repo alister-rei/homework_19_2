@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.forms import formset_factory, inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -112,10 +111,7 @@ class ProductListView(ListView):
         context = super(ProductListView, self).get_context_data(**kwargs)
         for object in context['product_list']:
             active_version = Version.objects.filter(product=object, is_current=True).last()
-            if active_version:
-                object.active_version_number = active_version.version_number
-            else:
-                object.active_version_number = None
+            object.active_version_number = active_version.version_number
         return context
 
 

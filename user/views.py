@@ -1,8 +1,5 @@
-import random
-
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordResetDoneView
-
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_bytes
@@ -10,7 +7,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.urls import reverse_lazy, reverse
-
 from config import settings
 from user.forms import UserRegisterForm, UserProfileForm
 from user.models import User
